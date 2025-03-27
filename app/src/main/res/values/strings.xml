@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AppHotel</string>
+    <string name="title_rooms">Habitaciones</string>
+    <string name="title_reservations">Reservaciones</string>
+    <string name="title_customers">Clientes</string>
+    <string name="title_services">Servicios</string>
+    <string name="title_invoices">Facturas</string>
+    
+    <!-- Navegación -->
+    <string name="home">Inicio</string>
+    <string name="rooms">Habitaciones</string>
+    <string name="services">Servicios</string>
+    <string name="reservations">Reservaciones</string>
+    <string name="customers">Clientes</string>
+    <string name="billing">Facturación</string>
+    <string name="hotel_management">Gestión Hotelera</string>
+    <string name="drawer_open">Abrir menú</string>
+    <string name="drawer_close">Cerrar menú</string>
+    
+    <!-- Room -->
+    <string name="room_list">Habitaciones</string>
+    <string name="room_detail">Detalle de habitación</string>
+    <string name="add_edit_room">Añadir/Editar habitación</string>
+    <string name="room_number">Número de Habitación</string>
+    <string name="room_type">Tipo de Habitación</string>
+    <string name="room_capacity">Capacidad</string>
+    <string name="room_price">Precio por noche</string>
+    <string name="room_status">Estado</string>
+    <string name="room_amenities">Comodidades</string>
+    <string name="available">Disponible</string>
+    <string name="occupied">Ocupada</string>
+    <string name="maintenance">Mantenimiento</string>
+    <string name="filter_rooms">Filtrar habitaciones</string>
+    <string name="add_room">Añadir habitación</string>
+    <string name="no_rooms_available">No hay habitaciones disponibles</string>
+    <string name="single_room">Individual</string>
+    <string name="double_room">Doble</string>
+    <string name="suite">Suite</string>
+    <string name="luxury_suite">Lujo</string>
+    <string name="family_room">Familiar</string>
+    <string name="wifi">WiFi</string>
+    <string name="air_conditioning">A/C</string>
+    <string name="tv">TV</string>
+    <string name="mini_bar">Mini Bar</string>
+    <string name="safe">Caja Fuerte</string>
+    <string name="balcony">Balcón</string>
+    <string name="view">Ver detalles</string>
+    <string name="amenities">Comodidades</string>
+    <string name="reserve">Reservar</string>
+    <string name="filter">Filtrar</string>
+    
+    <!-- Customer -->
+    <string name="customer_list">Clientes</string>
+    <string name="customer_detail">Detalle de cliente</string>
+    <string name="add_edit_customer">Añadir/Editar cliente</string>
+    <string name="customer_name">Nombre</string>
+    <string name="customer_email">Email</string>
+    <string name="customer_phone">Teléfono</string>
+    <string name="customer_address">Dirección</string>
+    <string name="customer_document">Documento de Identidad</string>
+    <string name="customer_reservations">Reservaciones del cliente</string>
+    
+    <!-- Reservation -->
+    <string name="reservation_list">Reservaciones</string>
+    <string name="reservation_detail">Detalle de reservación</string>
+    <string name="create_reservation">Crear reservación</string>
+    <string name="check_in_date">Fecha de Entrada</string>
+    <string name="check_out_date">Fecha de Salida</string>
+    <string name="total_price">Precio Total</string>
+    <string name="reservation_status">Estado de la Reserva</string>
+    <string name="confirmed">Confirmada</string>
+    <string name="checked_in">Registrado</string>
+    <string name="checked_out">Finalizada</string>
+    <string name="cancelled">Cancelada</string>
+    <string name="select_date">Seleccionar Fecha</string>
+    <string name="select_customer">Seleccionar Cliente</string>
+    <string name="select_room">Seleccionar Habitación</string>
+    <string name="search_available_rooms">Buscar Habitaciones Disponibles</string>
+    
+    <!-- Service -->
+    <string name="service_list">Servicios</string>
+    <string name="add_edit_service">Añadir/Editar servicio</string>
+    <string name="manage_services">Gestionar servicios</string>
+    <string name="service_name">Nombre del Servicio</string>
+    <string name="service_description">Descripción</string>
+    <string name="service_price">Precio</string>
+    <string name="service_category">Categoría</string>
+    <string name="service_quantity">Cantidad</string>
+    <string name="add_service">Añadir Servicio</string>
+    <string name="remove_service">Eliminar Servicio</string>
+    <string name="service_date">Fecha del Servicio</string>
+    <string name="service_notes">Notas</string>
+    
+    <!-- Invoice -->
+    <string name="invoice_list">Facturas</string>
+    <string name="invoice_detail">Detalle de factura</string>
+    <string name="generate_invoice">Generar factura</string>
+    <string name="invoice_number">Número de Factura</string>
+    <string name="issue_date">Fecha de Emisión</string>
+    <string name="due_date">Fecha de Vencimiento</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="tax">Impuestos</string>
+    <string name="total">Total</string>
+    <string name="payment_status">Estado de Pago</string>
+    <string name="payment_method">Método de Pago</string>
+    <string name="payment_date">Fecha de Pago</string>
+    <string name="paid">Pagada</string>
+    <string name="pending">Pendiente</string>
+    <string name="print_invoice">Imprimir Factura</string>
+    <string name="send_invoice">Enviar Factura</string>
+    <string name="mark_as_paid">Marcar como Pagada</string>
+    
+    <!-- Calendar -->
+    <string name="calendar">Calendario</string>
+    <string name="previous_month">Mes anterior</string>
+    <string name="next_month">Mes siguiente</string>
+    <string name="select_a_date">Seleccione una fecha</string>
+    <string name="monday_short">LUN</string>
+    <string name="tuesday_short">MAR</string>
+    <string name="wednesday_short">MIÉ</string>
+    <string name="thursday_short">JUE</string>
+    <string name="friday_short">VIE</string>
+    <string name="saturday_short">SÁB</string>
+    <string name="sunday_short">DOM</string>
+    <string name="no_reservations">No hay reservaciones</string>
+    <string name="no_reservations_for_date">No hay reservaciones para el %s</string>
+    <string name="please_select_date">Por favor selecciona una fecha</string>
+    
+    <!-- Common -->
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Eliminar</string>
+    <string name="edit">Editar</string>
+    <string name="search">Buscar</string>
+    <string name="add">Añadir</string>
+    <string name="confirm">Confirmar</string>
+    <string name="details">Ver detalles</string>
+    <string name="back">Volver</string>
+    <string name="select">Seleccionar</string>
+    <string name="notes">Notas</string>
+    <string name="apply">Aplicar</string>
+    <string name="clear">Limpiar</string>
+    <string name="ok">Aceptar</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="all">Todos</string>
+    <string name="none">Ninguno</string>
+</resources>

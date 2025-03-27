@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/homeFragment"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home" />
+        
+        <item android:title="@string/hotel_management">
+            <menu>
+                <item
+                    android:id="@+id/roomListFragment"
+                    android:icon="@drawable/ic_room"
+                    android:title="@string/rooms" />
+                
+                <item
+                    android:id="@+id/serviceListFragment"
+                    android:icon="@drawable/ic_service"
+                    android:title="@string/services" />
+            </menu>
+        </item>
+        
+        <item android:title="@string/reservations">
+            <menu>
+                <item
+                    android:id="@+id/reservationListFragment"
+                    android:icon="@drawable/ic_reservation"
+                    android:title="@string/reservation_list" />
+                
+                <item
+                    android:id="@+id/calendarFragment"
+                    android:icon="@drawable/ic_calendar"
+                    android:title="@string/calendar" />
+            </menu>
+        </item>
+        
+        <item android:title="@string/customers">
+            <menu>
+                <item
+                    android:id="@+id/customerListFragment"
+                    android:icon="@drawable/ic_customer"
+                    android:title="@string/customer_list" />
+            </menu>
+        </item>
+        
+        <item android:title="@string/billing">
+            <menu>
+                <item
+                    android:id="@+id/invoiceListFragment"
+                    android:icon="@drawable/ic_invoice"
+                    android:title="@string/invoice_list" />
+            </menu>
+        </item>
+    </group>
+</menu> 

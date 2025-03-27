@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.hotelapp.ui.fragments.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/roomListFragment"
+        android:name="com.example.hotelapp.ui.fragments.RoomListFragment"
+        android:label="@string/room_list"
+        tools:layout="@layout/fragment_room_list">
+        <action
+            android:id="@+id/action_roomListFragment_to_roomDetailFragment"
+            app:destination="@id/roomDetailFragment" />
+        <action
+            android:id="@+id/action_roomListFragment_to_addEditRoomFragment"
+            app:destination="@id/addEditRoomFragment" />
+        <action
+            android:id="@+id/action_roomListFragment_to_createReservationFragment"
+            app:destination="@id/createReservationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/roomDetailFragment"
+        android:name="com.example.hotelapp.ui.fragments.RoomDetailFragment"
+        android:label="@string/room_detail"
+        tools:layout="@layout/fragment_room_detail">
+        <argument
+            android:name="roomId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_roomDetailFragment_to_createReservationFragment"
+            app:destination="@id/createReservationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEditRoomFragment"
+        android:name="com.example.hotelapp.ui.fragments.AddEditRoomFragment"
+        android:label="@string/add_edit_room"
+        tools:layout="@layout/fragment_add_edit_room">
+        <argument
+            android:name="roomId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/customerListFragment"
+        android:name="com.example.hotelapp.ui.fragments.CustomerListFragment"
+        android:label="@string/customer_list"
+        tools:layout="@layout/fragment_customer_list">
+        <action
+            android:id="@+id/action_customerListFragment_to_customerDetailFragment"
+            app:destination="@id/customerDetailFragment" />
+        <action
+            android:id="@+id/action_customerListFragment_to_addEditCustomerFragment"
+            app:destination="@id/addEditCustomerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/customerDetailFragment"
+        android:name="com.example.hotelapp.ui.fragments.CustomerDetailFragment"
+        android:label="@string/customer_detail"
+        tools:layout="@layout/fragment_customer_detail">
+        <argument
+            android:name="customerId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_customerDetailFragment_to_customerReservationsFragment"
+            app:destination="@id/customerReservationsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEditCustomerFragment"
+        android:name="com.example.hotelapp.ui.fragments.AddEditCustomerFragment"
+        android:label="@string/add_edit_customer"
+        tools:layout="@layout/fragment_add_edit_customer">
+        <argument
+            android:name="customerId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/customerReservationsFragment"
+        android:name="com.example.hotelapp.ui.fragments.CustomerReservationsFragment"
+        android:label="@string/customer_reservations"
+        tools:layout="@layout/fragment_customer_reservations">
+        <argument
+            android:name="customerId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reservationListFragment"
+        android:name="com.example.hotelapp.ui.fragments.ReservationListFragment"
+        android:label="@string/reservation_list"
+        tools:layout="@layout/fragment_reservation_list">
+        <action
+            android:id="@+id/action_reservationListFragment_to_reservationDetailFragment"
+            app:destination="@id/reservationDetailFragment" />
+        <action
+            android:id="@+id/action_reservationListFragment_to_createReservationFragment"
+            app:destination="@id/createReservationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reservationDetailFragment"
+        android:name="com.example.hotelapp.ui.fragments.ReservationDetailFragment"
+        android:label="@string/reservation_detail"
+        tools:layout="@layout/fragment_reservation_detail">
+        <argument
+            android:name="reservationId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_reservationDetailFragment_to_manageServicesFragment"
+            app:destination="@id/manageServicesFragment" />
+        <action
+            android:id="@+id/action_reservationDetailFragment_to_generateInvoiceFragment"
+            app:destination="@id/generateInvoiceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createReservationFragment"
+        android:name="com.example.hotelapp.ui.fragments.CreateReservationFragment"
+        android:label="@string/create_reservation"
+        tools:layout="@layout/fragment_create_reservation">
+        <argument
+            android:name="roomId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="customerId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/serviceListFragment"
+        android:name="com.example.hotelapp.ui.fragments.ServiceListFragment"
+        android:label="@string/service_list"
+        tools:layout="@layout/fragment_service_list">
+        <action
+            android:id="@+id/action_serviceListFragment_to_addEditServiceFragment"
+            app:destination="@id/addEditServiceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEditServiceFragment"
+        android:name="com.example.hotelapp.ui.fragments.AddEditServiceFragment"
+        android:label="@string/add_edit_service"
+        tools:layout="@layout/fragment_add_edit_service">
+        <argument
+            android:name="serviceId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/manageServicesFragment"
+        android:name="com.example.hotelapp.ui.fragments.ManageServicesFragment"
+        android:label="@string/manage_services"
+        tools:layout="@layout/fragment_manage_services">
+        <argument
+            android:name="reservationId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/generateInvoiceFragment"
+        android:name="com.example.hotelapp.ui.fragments.GenerateInvoiceFragment"
+        android:label="@string/generate_invoice"
+        tools:layout="@layout/fragment_generate_invoice">
+        <argument
+            android:name="reservationId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/invoiceListFragment"
+        android:name="com.example.hotelapp.ui.fragments.InvoiceListFragment"
+        android:label="@string/invoice_list"
+        tools:layout="@layout/fragment_invoice_list">
+        <action
+            android:id="@+id/action_invoiceListFragment_to_invoiceDetailFragment"
+            app:destination="@id/invoiceDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/invoiceDetailFragment"
+        android:name="com.example.hotelapp.ui.fragments.InvoiceDetailFragment"
+        android:label="@string/invoice_detail"
+        tools:layout="@layout/fragment_invoice_detail">
+        <argument
+            android:name="invoiceId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.hotelapp.ui.fragments.CalendarFragment"
+        android:label="@string/calendar"
+        tools:layout="@layout/fragment_calendar">
+        <action
+            android:id="@+id/action_calendarFragment_to_createReservationFragment"
+            app:destination="@id/createReservationFragment" />
+    </fragment>
+</navigation> 
