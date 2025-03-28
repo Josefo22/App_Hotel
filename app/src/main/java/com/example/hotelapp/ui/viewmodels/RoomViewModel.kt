@@ -5,22 +5,22 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.hotelapp.data.db.AppDatabase
-import com.example.hotelapp.data.model.Room
+import com.example.hotelapp.data.AppDatabase
+import com.example.hotelapp.data.entity.HotelRoom
 import com.example.hotelapp.data.model.RoomStatus
 import com.example.hotelapp.data.model.RoomType
-import com.example.hotelapp.repository.RoomRepository
+import com.example.hotelapp.data.repositories.RoomRepository
 import com.example.hotelapp.utils.SampleDataProvider
 import kotlinx.coroutines.launch
 
 class RoomViewModel(application: Application) : AndroidViewModel(application) {
     
     private val repository: RoomRepository
-    private val _rooms = MutableLiveData<List<Room>>()
-    val rooms: LiveData<List<Room>> = _rooms
+    private val _rooms = MutableLiveData<List<HotelRoom>>()
+    val rooms: LiveData<List<HotelRoom>> = _rooms
     
     init {
-        val roomDao = AppDatabase.getInstance(application).roomDao()
+        val roomDao = AppDatabase.getDatabase(application, viewModelScope).roomDao()
         repository = RoomRepository(roomDao)
         loadAllRooms()
     }
@@ -30,7 +30,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
             val roomsFromDb = repository.getAllRooms().value
             if (roomsFromDb.isNullOrEmpty()) {
                 // Si no hay habitaciones en la base de datos, cargamos datos de ejemplo
-                _rooms.value = SampleDataProvider.getSampleRooms()
+                _rooms.value = SampleDataProvider().getSampleRooms()
             } else {
                 _rooms.value = roomsFromDb
             }
@@ -39,39 +39,39 @@ class RoomViewModel(application: Application) : AndroidViewModel(application) {
     
     fun loadRoomsByStatus(status: RoomStatus) {
         viewModelScope.launch {
-            val filteredRooms = rooms.value?.filter { it.status == status } ?: emptyList()
-            _rooms.value = filteredRooms
+            val roomsFromDb = repository.getRoomsByStatus(status).value
+            _rooms.value = roomsFromDb ?: emptyList()
         }
     }
     
     fun loadRoomsByType(type: RoomType) {
         viewModelScope.launch {
-            val filteredRooms = rooms.value?.filter { it.type == type } ?: emptyList()
-            _rooms.value = filteredRooms
+            val roomsFromDb = repository.getRoomsByType(type).value
+            _rooms.value = roomsFromDb ?: emptyList()
         }
     }
     
-    fun getRoomById(roomId: Long): Room? {
+    fun getRoomById(roomId: Long): HotelRoom? {
         return rooms.value?.find { it.id == roomId }
     }
     
-    fun insertRoom(room: Room) {
+    fun insertRoom(room: HotelRoom) {
         viewModelScope.launch {
-            repository.insertRoom(room)
+            repository.insert(room)
             loadAllRooms()
         }
     }
     
-    fun updateRoom(room: Room) {
+    fun updateRoom(room: HotelRoom) {
         viewModelScope.launch {
-            repository.updateRoom(room)
+            repository.update(room)
             loadAllRooms()
         }
     }
     
-    fun deleteRoom(room: Room) {
+    fun deleteRoom(room: HotelRoom) {
         viewModelScope.launch {
-            repository.deleteRoom(room)
+            repository.delete(room)
             loadAllRooms()
         }
     }

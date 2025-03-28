@@ -1,32 +1,40 @@
 package com.example.hotelapp.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.hotelapp.data.model.Customer
+import com.example.hotelapp.data.entity.Customer
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CustomerDao {
-    @Query("SELECT * FROM customers ORDER BY name")
-    fun getAllCustomers(): LiveData<List<Customer>>
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM customers ORDER BY name ASC")
+    fun getAllCustomers(): Flow<List<Customer>>
     
-    @Query("SELECT * FROM customers WHERE id = :customerId")
-    fun getCustomerById(customerId: Long): LiveData<Customer>
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM customers WHERE id = :id")
+    fun getCustomerById(id: Long): Flow<Customer>
     
-    @Query("SELECT * FROM customers WHERE name LIKE '%' || :searchQuery || '%'")
-    fun searchCustomersByName(searchQuery: String): LiveData<List<Customer>>
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM customers WHERE name LIKE '%' || :searchQuery || '%' ORDER BY name ASC")
+    fun searchCustomersByName(searchQuery: String): Flow<List<Customer>>
     
-    @Query("SELECT * FROM customers WHERE email LIKE '%' || :searchQuery || '%'")
-    fun searchCustomersByEmail(searchQuery: String): LiveData<List<Customer>>
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM customers WHERE email = :email")
+    fun getCustomerByEmail(email: String): Flow<Customer?>
     
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM customers WHERE documentNumber = :documentNumber")
-    fun getCustomerByDocumentNumber(documentNumber: String): LiveData<Customer>
+    fun getCustomerByDocumentNumber(documentNumber: String): Flow<Customer?>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCustomer(customer: Customer): Long
+    suspend fun insert(customer: Customer): Long
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(customers: List<Customer>)
     
     @Update
-    suspend fun updateCustomer(customer: Customer)
+    suspend fun update(customer: Customer)
     
     @Delete
-    suspend fun deleteCustomer(customer: Customer)
+    suspend fun delete(customer: Customer)
 } 

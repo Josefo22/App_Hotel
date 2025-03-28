@@ -4,24 +4,23 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.hotelapp.data.db.AppDatabase
-import com.example.hotelapp.data.model.Reservation
+import com.example.hotelapp.data.AppDatabase
+import com.example.hotelapp.data.entity.Reservation
 import com.example.hotelapp.data.model.ReservationStatus
-import com.example.hotelapp.repository.ReservationRepository
+import com.example.hotelapp.data.repositories.ReservationRepository
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.util.Date
 
 class ReservationViewModel(application: Application) : AndroidViewModel(application) {
     
     private val repository: ReservationRepository
+    val allReservations: LiveData<List<Reservation>>
     
     init {
-        val reservationDao = AppDatabase.getInstance(application).reservationDao()
+        val reservationDao = AppDatabase.getDatabase(application, viewModelScope).reservationDao()
         repository = ReservationRepository(reservationDao)
+        allReservations = repository.getAllReservations()
     }
-    
-    val allReservations: LiveData<List<Reservation>> = repository.allReservations
     
     fun getReservationById(id: Long): LiveData<Reservation> {
         return repository.getReservationById(id)
@@ -39,8 +38,17 @@ class ReservationViewModel(application: Application) : AndroidViewModel(applicat
         return repository.getReservationsByStatus(status)
     }
     
-    fun getReservationsByDateRange(startDate: Date, endDate: Date): LiveData<List<Reservation>> {
-        return repository.getReservationsByDateRange(startDate, endDate)
+    fun getReservationsInDateRange(startDate: Date, endDate: Date): LiveData<List<Reservation>> {
+        return repository.getReservationsInDateRange(startDate, endDate)
+    }
+    
+    suspend fun getConflictingReservations(
+        roomId: Long,
+        checkInDate: Date,
+        checkOutDate: Date,
+        excludeStatus: ReservationStatus = ReservationStatus.CANCELLED
+    ): List<Reservation> {
+        return repository.getConflictingReservations(roomId, checkInDate, checkOutDate, excludeStatus)
     }
     
     fun insert(reservation: Reservation) = viewModelScope.launch {

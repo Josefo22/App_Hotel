@@ -1,46 +1,49 @@
 package com.example.hotelapp.data.repositories
 
 import androidx.lifecycle.LiveData
-import com.example.hotelapp.data.db.dao.ReservationDao
-import com.example.hotelapp.data.model.Reservation
-import java.time.LocalDate
+import androidx.lifecycle.asLiveData
+import com.example.hotelapp.data.dao.ReservationDao
+import com.example.hotelapp.data.entity.Reservation
+import com.example.hotelapp.data.model.ReservationStatus
+import kotlinx.coroutines.flow.Flow
+import java.util.Date
 
 class ReservationRepository(private val reservationDao: ReservationDao) {
     
     fun getAllReservations(): LiveData<List<Reservation>> {
-        return reservationDao.getAllReservations()
+        return reservationDao.getAllReservations().asLiveData()
     }
     
     fun getReservationById(id: Long): LiveData<Reservation> {
-        return reservationDao.getReservationById(id)
+        return reservationDao.getReservationById(id).asLiveData()
     }
     
-    fun getReservationsByCustomerId(customerId: Long): LiveData<List<Reservation>> {
-        return reservationDao.getReservationsByCustomerId(customerId)
+    fun getReservationsByCustomer(customerId: Long): LiveData<List<Reservation>> {
+        return reservationDao.getReservationsByCustomer(customerId).asLiveData()
     }
     
-    fun getReservationsByRoomId(roomId: Long): LiveData<List<Reservation>> {
-        return reservationDao.getReservationsByRoomId(roomId)
+    fun getReservationsByRoom(roomId: Long): LiveData<List<Reservation>> {
+        return reservationDao.getReservationsByRoom(roomId).asLiveData()
     }
     
-    fun getReservationsByStatus(status: String): LiveData<List<Reservation>> {
-        return reservationDao.getReservationsByStatus(status)
+    fun getReservationsByStatus(status: ReservationStatus): LiveData<List<Reservation>> {
+        return reservationDao.getReservationsByStatus(status).asLiveData()
     }
     
     /**
-     * Obtiene todas las reservaciones para una fecha específica
+     * Obtiene todas las reservaciones para un rango de fechas
      */
-    fun getReservationsForDate(date: LocalDate): LiveData<List<Reservation>> {
-        return reservationDao.getReservationsForDate(date)
+    fun getReservationsInDateRange(startDate: Date, endDate: Date): LiveData<List<Reservation>> {
+        return reservationDao.getReservationsInDateRange(startDate, endDate).asLiveData()
     }
     
-    fun getReservationsBetweenDates(startDate: LocalDate, endDate: LocalDate): LiveData<List<Reservation>> {
-        return reservationDao.getReservationsBetweenDates(startDate, endDate)
-    }
-    
-    suspend fun isRoomReservedForDates(roomId: Long, checkInDate: LocalDate, checkOutDate: LocalDate): Boolean {
-        val count = reservationDao.isRoomReservedForDates(roomId, checkInDate, checkOutDate)
-        return count > 0
+    suspend fun getConflictingReservations(
+        roomId: Long,
+        checkInDate: Date,
+        checkOutDate: Date,
+        excludeStatus: ReservationStatus = ReservationStatus.CANCELLED
+    ): List<Reservation> {
+        return reservationDao.getConflictingReservations(roomId, checkInDate, checkOutDate, excludeStatus).asLiveData().value ?: emptyList()
     }
     
     suspend fun insert(reservation: Reservation): Long {
@@ -55,7 +58,7 @@ class ReservationRepository(private val reservationDao: ReservationDao) {
         reservationDao.delete(reservation)
     }
     
-    suspend fun deleteAll() {
-        reservationDao.deleteAll()
+    suspend fun updateReservationStatus(reservationId: Long, status: ReservationStatus) {
+        reservationDao.updateReservationStatus(reservationId, status)
     }
 } 

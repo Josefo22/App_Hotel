@@ -198,11 +198,11 @@ class CalendarFragment : Fragment() {
     }
     
     private fun showReservationsForDate(date: LocalDate) {
-        // Convertir LocalDate a Date para usar con el método getReservationsByDateRange
+        // Convertir LocalDate a Date para usar con el método getReservationsInDateRange
         val startDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant())
         val endDate = Date.from(date.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant())
         
-        reservationViewModel.getReservationsByDateRange(startDate, endDate).observe(viewLifecycleOwner) { reservations ->
+        reservationViewModel.getReservationsInDateRange(startDate, endDate).observe(viewLifecycleOwner) { reservations ->
             if (reservations.isEmpty()) {
                 binding.tvCalendarInfo.text = getString(R.string.no_reservations_for_date, date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 binding.tvCalendarInfo.visibility = View.VISIBLE

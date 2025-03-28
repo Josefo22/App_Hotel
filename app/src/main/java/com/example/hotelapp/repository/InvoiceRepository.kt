@@ -2,44 +2,50 @@ package com.example.hotelapp.repository
 
 import androidx.lifecycle.LiveData
 import com.example.hotelapp.data.dao.InvoiceDao
-import com.example.hotelapp.data.model.Invoice
-import com.example.hotelapp.data.model.PaymentMethod
-import com.example.hotelapp.data.model.PaymentStatus
+import com.example.hotelapp.data.entity.Invoice
+import kotlinx.coroutines.flow.Flow
 import java.util.Date
 
 class InvoiceRepository(private val invoiceDao: InvoiceDao) {
     
-    val allInvoices: LiveData<List<Invoice>> = invoiceDao.getAllInvoices()
+    val allInvoices: Flow<List<Invoice>> = invoiceDao.getAllInvoices()
     
     suspend fun insert(invoice: Invoice): Long {
-        return invoiceDao.insertInvoice(invoice)
+        return invoiceDao.insert(invoice)
     }
     
     suspend fun update(invoice: Invoice) {
-        invoiceDao.updateInvoice(invoice)
+        invoiceDao.update(invoice)
     }
     
     suspend fun delete(invoice: Invoice) {
-        invoiceDao.deleteInvoice(invoice)
+        invoiceDao.delete(invoice)
     }
     
-    fun getInvoiceById(invoiceId: Long): LiveData<Invoice> {
-        return invoiceDao.getInvoiceById(invoiceId)
+    fun getInvoiceById(id: Long): Flow<Invoice> {
+        return invoiceDao.getInvoiceById(id)
     }
     
-    fun getInvoiceByReservation(reservationId: Long): LiveData<Invoice> {
+    fun getInvoiceByReservation(reservationId: Long): Flow<Invoice?> {
         return invoiceDao.getInvoiceByReservation(reservationId)
     }
     
-    fun getOverdueInvoices(today: Date): LiveData<List<Invoice>> {
-        return invoiceDao.getOverdueInvoices(today, PaymentStatus.PAID)
-    }
-    
-    fun getInvoicesByPaymentStatus(status: PaymentStatus): LiveData<List<Invoice>> {
+    fun getInvoicesByPaymentStatus(isPaid: Boolean): Flow<List<Invoice>> {
+        val status = if (isPaid) "PAID" else "UNPAID"
         return invoiceDao.getInvoicesByPaymentStatus(status)
     }
     
-    suspend fun updateInvoicePayment(invoiceId: Long, status: PaymentStatus, method: PaymentMethod, date: Date) {
-        invoiceDao.updateInvoicePayment(invoiceId, status, method, date)
+    fun getInvoicesByDateRange(startDate: Date, endDate: Date): Flow<List<Invoice>> {
+        return invoiceDao.getInvoicesByDateRange(startDate, endDate)
+    }
+    
+    fun getTotalRevenue(isPaid: Boolean = true): Flow<Double?> {
+        val status = if (isPaid) "PAID" else "UNPAID"
+        return invoiceDao.getTotalRevenue(status)
+    }
+    
+    suspend fun updatePaymentStatus(invoiceId: Long, isPaid: Boolean, paymentDate: Date?, paymentMethod: String?) {
+        val status = if (isPaid) "PAID" else "UNPAID"
+        invoiceDao.updatePaymentStatus(invoiceId, status, paymentDate, paymentMethod)
     }
 } 

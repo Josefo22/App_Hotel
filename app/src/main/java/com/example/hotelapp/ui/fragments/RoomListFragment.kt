@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotelapp.R
+import com.example.hotelapp.data.entity.HotelRoom
 import com.example.hotelapp.data.model.RoomStatus
 import com.example.hotelapp.databinding.FragmentRoomListBinding
 import com.example.hotelapp.ui.adapters.RoomAdapter
@@ -23,6 +24,7 @@ class RoomListFragment : Fragment() {
     
     private val viewModel: RoomViewModel by viewModels()
     private lateinit var roomAdapter: RoomAdapter
+    private val sampleDataProvider = SampleDataProvider()
     
     override fun onCreateView(
         inflater: LayoutInflater, 
@@ -69,7 +71,7 @@ class RoomListFragment : Fragment() {
         }
         
         // Cargar datos de muestra inicialmente
-        roomAdapter.submitList(SampleDataProvider.getSampleRooms())
+        roomAdapter.submitList(sampleDataProvider.getSampleRooms())
     }
     
     private fun setupClickListeners() {
@@ -90,7 +92,7 @@ class RoomListFragment : Fragment() {
                 binding.tvNoRooms.visibility = View.GONE
             } else {
                 // Verificar si estamos usando datos de muestra
-                val sampleRooms = SampleDataProvider.getSampleRooms()
+                val sampleRooms = sampleDataProvider.getSampleRooms()
                 if (sampleRooms.isNotEmpty()) {
                     roomAdapter.submitList(sampleRooms)
                     binding.recyclerViewRooms.visibility = View.VISIBLE
@@ -120,7 +122,7 @@ class RoomListFragment : Fragment() {
     }
     
     private fun applyFilter(filterOption: Int) {
-        val allRooms = SampleDataProvider.getSampleRooms()
+        val allRooms = sampleDataProvider.getSampleRooms()
         
         val filteredRooms = when (filterOption) {
             0 -> allRooms

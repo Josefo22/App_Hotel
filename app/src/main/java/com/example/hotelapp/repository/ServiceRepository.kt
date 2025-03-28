@@ -1,13 +1,23 @@
 package com.example.hotelapp.repository
 
-import androidx.lifecycle.LiveData
 import com.example.hotelapp.data.dao.ServiceDao
-import com.example.hotelapp.data.model.Service
-import com.example.hotelapp.data.model.ServiceCategory
+import com.example.hotelapp.data.entity.Service
+import kotlinx.coroutines.flow.Flow
 
 class ServiceRepository(private val serviceDao: ServiceDao) {
+    val allServices: Flow<List<Service>> = serviceDao.getAllServices()
     
-    val allServices: LiveData<List<Service>> = serviceDao.getAllServices()
+    fun getServiceById(id: Long): Flow<Service> {
+        return serviceDao.getServiceById(id)
+    }
+    
+    fun getAvailableServices(): Flow<List<Service>> {
+        return serviceDao.getAvailableServices()
+    }
+    
+    fun searchServices(searchQuery: String): Flow<List<Service>> {
+        return serviceDao.searchServices("%$searchQuery%")
+    }
     
     suspend fun insert(service: Service): Long {
         return serviceDao.insert(service)
@@ -21,15 +31,7 @@ class ServiceRepository(private val serviceDao: ServiceDao) {
         serviceDao.delete(service)
     }
     
-    fun getServiceById(serviceId: Long): LiveData<Service> {
-        return serviceDao.getServiceById(serviceId)
-    }
-    
-    fun getServicesByCategory(category: ServiceCategory): LiveData<List<Service>> {
-        return serviceDao.getServicesByCategory(category)
-    }
-    
-    fun searchServices(query: String): LiveData<List<Service>> {
-        return serviceDao.searchServices("%$query%")
+    suspend fun updateServiceAvailability(serviceId: Long, available: Boolean) {
+        serviceDao.updateServiceAvailability(serviceId, available)
     }
 } 
